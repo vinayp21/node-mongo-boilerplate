@@ -4,7 +4,7 @@ let express = require('express');
 let app= express();
 
 //dbConnector.connect();
- app.get('/',(req,res) => {
+ app.get('/',(req,res,next) => {
 //   let data={
 //     question:'String',
 //     topic:'String',
@@ -24,7 +24,7 @@ let app= express();
 //     res.json(data);
 //   });
 res.send('success');
-
+next();
 })
 app.listen(1111,() => {
   console.log('Example app listening on port 1111!')
