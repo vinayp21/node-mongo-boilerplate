@@ -2,9 +2,15 @@
 //import Forum from './db/schema/forum';
 let express = require('express');
 let app= express();
+var path    = require("path");
 
+
+app.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
 //dbConnector.connect();
- app.get('/',(req,res,next) => {
+ //app.get('/',(req,res) => {
 //   let data={
 //     question:'String',
 //     topic:'String',
@@ -23,9 +29,8 @@ let app= express();
 //     }
 //     res.json(data);
 //   });
-res.send('success');
-next();
-})
+//res.sendFile('./index.html');
+//})
 app.listen(1111,() => {
   console.log('Example app listening on port 1111!')
 })
