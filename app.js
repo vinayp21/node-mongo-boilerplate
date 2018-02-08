@@ -3,7 +3,7 @@
 let express = require('express');
 let app= express();
 var path    = require("path");
-
+let PORT=process.env.PORT || 1111
 
 app.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
@@ -31,6 +31,6 @@ app.get('/',function(req,res){
 //   });
 //res.sendFile('./index.html');
 //})
-app.listen(1111,() => {
+app.listen(PORT,() => {
   console.log('Example app listening on port 1111!')
 })
