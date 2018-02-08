@@ -15,7 +15,7 @@
     "mongodb"
   ],
   "engines": {
-    "node": "6.10.1"
+    "node": "6.10.0"
   },
   "author": "Vinay",
   "license": "ISC",
