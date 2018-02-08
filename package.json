@@ -2,10 +2,10 @@
   "name": "node-mongo-app",
   "version": "1.0.0",
   "description": "Node api's connecting to mongo db",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
+    "start": "NODE_ENV=development nodemon index.js",
     "build": "NODE_ENV=production babel ./src -d ./dist -w",
     "lint": "eslint ./src/*.js*",
     "test":"mocha --compilers js:babel-register"
@@ -15,7 +15,7 @@
     "mongodb"
   ],
   "engines": {
-    "node": "6.10.1"
+    "node": "6.10.0"
   },
   "author": "Vinay",
   "license": "ISC",
