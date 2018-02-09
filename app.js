@@ -9,6 +9,10 @@ app.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
   //__dirname : It will resolve to your project folder.
 });
+app.get('/test',function(req,res){
+  res.send('Test Screen');
+  //__dirname : It will resolve to your project folder.
+});
 //dbConnector.connect();
  //app.get('/',(req,res) => {
 //   let data={
