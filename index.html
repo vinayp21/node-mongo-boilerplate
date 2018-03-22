@@ -1,1 +1,19 @@
-<h1>Welcome</h1>
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Welcome</h1>
+  <p id='server-time'></p>
+  <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      var el = document.getElementById('server-time');
+      socket.on('news', function(timeString) {
+        el.innerHTML = 'Server time: ' + timeString.hello;
+        setTimeout(function(){
+          socket.emit('client',{data:'test'});
+        },2000);
+
+      });
+    </script>
+</body>
+</html>
