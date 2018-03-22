@@ -1,35 +1,46 @@
-'use strict';
+let dbConnector = require('./db/connector');
+import Forum from './db/schema/forum';
+let express = require('express');
+let app= express();
+var path    = require("path");
+var multer= require('multer');
+var upload= multer({dest:'./uploads'})
 
-const express = require('express');
-const socketIO = require('socket.io');
-const path = require('path');
+let PORT=process.env.PORT || 1111
+app.post('/upload', upload.single('test'), function(req, res, next){
 
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
-
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-const io = socketIO(server);
-
-io.on('connection', function(client){
-	client.on('join', function(name){
-		client.nickname=name;
-	});
-	client.on('messages',function(data){
-	var obj={
-		msg:data,
-		sender:client.nickname
-	}
-	client.broadcast.emit('messages',obj);
-	var senderobj={
-		msg:data,
-		sender:'You'
-	}
-	client.emit('messages',senderobj);
-	});
-
+})
+app.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+  //__dirname : It will resolve to your project folder.
 });
-
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+app.get('/test',function(req,res){
+  res.send('Test Screen');
+  //__dirname : It will resolve to your project folder.
+});
+dbConnector.connect();
+ app.get('/',(req,res) => {
+  let data={
+    question:'String',
+    topic:'String',
+    askedBy:'String',
+    dateTime:null,
+    answer:[{
+      id:'String',
+      answer:'String',
+      answerBy:'String',
+      dateTime:null
+    }]
+  };
+  Forum.create(data,(err, data) => {
+    if(err){
+      res.json('error');
+    }
+    console.log('2232')
+    res.json(data);
+  });
+//res.sendFile('./index.html');
+})
+app.listen(PORT,() => {
+  console.log(`Example app listening on port ${PORT}`)
+})
