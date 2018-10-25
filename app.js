@@ -16,6 +16,8 @@ app.use(cookieParser())
 app.use(session({
   secret: config.sessionSecret,
   httpOnly: false,
+  saveUninitialized:true,
+  resave:false,
   cookie: { secure: false }
 }))
 
