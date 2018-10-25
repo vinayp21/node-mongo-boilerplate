@@ -10,7 +10,7 @@ const userAuthenticator = {
         if (err) {
           throw new Error('Invaild Token')
         }
-        if (req.sessionID === req.cookies['session-id']) {
+        // if (req.sessionID === req.cookies['session-id']) {
           userController.getUserById(req, res, decoded.id, (err, data) => {
             if (err) {
               throw new Error(err)
@@ -19,9 +19,9 @@ const userAuthenticator = {
               next()
             }
           })
-        } else {
-          throw new Error('Session logged out')
-        }
+        // } else {
+        //   throw new Error('Session logged out')
+        // }
       })
     } else {
       next()

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+   <head>
+      <meta charset = "UTF-8">
+      <meta name="viewport" content="width=device-width">
+      <title>Authentication</title>
+   </head>
+   <body>
+      <div id = "app">
+          <h1>Welcome To Authentication Session</h1>
+
+          <button onclick="login()">Login</button>
+          <button onclick="getUser()">Get</button>
+          <button onclick="logout()">Logout</button>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+      <script>
+          
+          function login(){
+            var payload={
+                    "loginData":{
+                        "userId":"5bcae60f28bc3c033e223836",
+                        "password":"12345"
+                    }
+                }
+              $.ajax({
+                  url:'http://localhost:8000/user/userLogin',
+                  method:'post',
+                  contentType:'application/json',
+                  data:JSON.stringify(payload),
+              }).done(function(data) {
+                console.log(data)
+            });
+          }
+          function getUser(){
+            $.ajax({
+                  url:'http://localhost:8000/user',
+                  method:'get',
+                  contentType:'application/json'
+                  
+              }).done(function(data) {
+                console.log(data)
+            });
+          }
+        //   function login(){
+              
+        //   }
+      
+      </script>
+   </body>
+
+</html>

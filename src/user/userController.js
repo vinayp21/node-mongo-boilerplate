@@ -67,6 +67,7 @@ const userController = {
         throw new Error()
       }
       res.cookie('session-id', req.sessionID, { httpOnly: false })
+      req.session.userId=data[0]._id;
       const token = jwt.sign({ id: loginData.userId }, config.secretKey, { expiresIn: '1h' })
       res.json({ data, token })
     })

@@ -15,9 +15,7 @@ app.use(cookieParser())
 
 app.use(session({
   secret: config.sessionSecret,
-  resave: false,
   httpOnly: false,
-  saveUninitialized: true,
   cookie: { secure: false }
 }))
 
@@ -26,7 +24,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(bodyParser.json())
-
+app.use(express.static('public'));
 app.use((req, res, next) => {
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
