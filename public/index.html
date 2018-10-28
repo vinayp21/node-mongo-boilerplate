@@ -27,7 +27,7 @@
                     }
                 }
               $.ajax({
-                  url:'http://localhost:8000/user/userLogin',
+                  url:'http://localhost:8000/api/sign-in',
                   method:'post',
                   contentType:'application/json',
                   data:JSON.stringify(payload),
@@ -37,7 +37,7 @@
           }
           function getUser(){
             $.ajax({
-                  url:'http://localhost:8000/user',
+                  url:'http://localhost:8000/api/users',
                   method:'get',
                   contentType:'application/json'
                   

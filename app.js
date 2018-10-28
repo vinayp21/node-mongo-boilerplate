@@ -45,7 +45,7 @@ app.use((req, res, next) => {
   next()
 })
 app.use(userAuthenticator.authenticate)
-app.use('/user', UserRoute)
+app.use('/api', UserRoute)
 app.get('/', (req, res) => {
   res.send('Welcome')
 })

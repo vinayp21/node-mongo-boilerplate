@@ -1,4 +1,5 @@
 import UserModal from './userModal'
+import generator from '../utils/responseGenerator'; 
 import config from '../../config'
 const jwt = require('jsonwebtoken')
 
@@ -25,14 +26,16 @@ const userController = {
       res.json(data)
     })
   },
-  getAllUserInfo: (req, res) => {
+
+  getAllUserInfo: (req, res, callback) => {
     UserModal.find({}, (err, data) => {
       if (err) {
-        throw new Error()
+        callback(generator.errorResponse(err));
       }
-      res.json(data)
+      callback(generator.successResponse(data));
     })
   },
+
   getUserById: (req, res, id, callback) => {
     UserModal.findById({ _id: id }, (err, data) => {
       if (err) {
@@ -41,14 +44,16 @@ const userController = {
       callback(null, data)
     })
   },
+
   deleteUser: (req, res, id) => {
     UserModal.find({ _id: id }).remove((err, data) => {
       if (err) {
-        throw new Error()
+        throw new Error(err)
       }
       res.json(data)
     })
   },
+
   updateUserInfo: (req, res, id, newData) => {
     UserModal.update({ _id: id }, newData, (err, data) => {
       if (err) {
@@ -57,6 +62,7 @@ const userController = {
       res.json(data)
     })
   },
+
   authenticateUser: (req, res, loginData) => {
     const loginQuery = {
       _id: loginData.userId,
@@ -69,8 +75,19 @@ const userController = {
       res.cookie('session-id', req.sessionID, { httpOnly: false })
       req.session.userId=data[0]._id;
       const token = jwt.sign({ id: loginData.userId }, config.secretKey, { expiresIn: '1h' })
-      res.json({ data, token })
+      let userData={
+        userData:data[0],
+        jwt:token
+      };
+      res.json(userData)
     })
+  },
+
+  logout :(req, res, id) => {
+    req.session.userId={};
+    req.session.destroy();
+    res.clearCookie('session-id');
+    res.json({status:true});
   }
 }
 
