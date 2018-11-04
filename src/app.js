@@ -1,8 +1,8 @@
 import bodyParser from 'body-parser'
-import UserRoute from './src/user/UserRoute'
-import userAuthenticator from './src/utils/userAuthenticator'
-import config from './config'
-let dbConnector = require('./db/connector')
+import UserRoute from './user/UserRoute'
+import userAuthenticator from './utils/userAuthenticator'
+import config from '../config'
+let dbConnector = require('../db/connector')
 let express = require('express')
 let app = express()
 const compression = require('compression')
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 app.use(userAuthenticator.authenticate)
 app.use('/api', UserRoute)
 app.get('/', (req, res) => {
-  res.send('Welcome')
+  res.send('Welcome To Node App')
 })
 
 const PORT = process.env.PORT || 8080
