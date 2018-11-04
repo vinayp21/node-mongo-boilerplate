@@ -1,6 +1,7 @@
 import userController from '../user/userController'
 import config from '../../config'
 const jwt = require('jsonwebtoken')
+import generator from './responseGenerator'; 
 
 const userAuthenticator = {
   authenticate: (req, res, next) => {
@@ -9,21 +10,19 @@ const userAuthenticator = {
       jwt.verify(token, config.secretKey, (err, decoded) => {
         if (err) {
           res.status(401)
-          throw new Error('Invaild Token')
+          res.json(generator.errorResponse('Invaild Token'))
+          return null
         }
         if (req.sessionID === req.cookies['session-id']) {
-          userController.getUserById(req, res, req.session.userId, (err, data) => {
-            if (err) {
-              res.status(500)
-              throw new Error(err)
-            }
+          userController.getUserById(req, res, req.session.userId, (data) => {
             if (data) {
               next()
             }
           })
         } else {
           res.status(401)
-          throw new Error('Session logged out')
+          res.json(generator.errorResponse('Session logged out'))
+          return null
         }
       })
     } else {

@@ -6,7 +6,10 @@ const generator = {
         }
     },
     errorResponse: (error) => {
-        return erroe
+        return {
+            status:true,
+            message:error
+        }
     }
 }
 

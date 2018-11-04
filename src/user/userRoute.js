@@ -11,7 +11,7 @@ router.get('/users', (req, res) => {
 
 router.get('/user/:id', (req, res) => {
   const id = req.params.id
-  userController.getUserById(req, res, id, (err, data) => {
+  userController.getUserById(req, res, id, (data) => {
     if (err) {
       throw new Error(err)
     }
@@ -22,22 +22,31 @@ router.get('/user/:id', (req, res) => {
 router.post('/sign-in', (req, res) => {
   const { loginData } = req.body
   console.log(loginData)
-  userController.authenticateUser(req, res, loginData)
+  userController.authenticateUser(req, res, loginData, (data) => {
+    res.json(data)
+  })
 })
 
 router.post('/user', (req, res) => {
-  userController.addUserData(req, res)
+  userController.addUserData(req, res, (data) => {
+    res.json(data)
+  })
 })
 
 router.delete('/user', (req, res) => {
   const id = req.body.userId
-  userController.deleteUser(req, res, id)
+  userController.deleteUser(req, res, id, (data) => {
+    res.json(data)
+  })
 })
 
 router.put('/user', (req, res) => {
   const id = req.body.userId
   const newData = req.body.newData
-  userController.updateUserInfo(req, res, id, newData)
+  userController.updateUserInfo(req, res, id, newData, (data) => {
+    console.log(data);
+    res.json(data)
+  })
 })
 
 router.put('/logout', (req, res) => {
