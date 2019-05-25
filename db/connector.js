@@ -3,7 +3,9 @@ var mongoose = require('mongoose')
 let dbConnector = {
   connect: () => {
     mongoose.Promise = global.Promise
-    mongoose.connect(config.dbName)
+    mongoose.connect(config.dbName, () => {
+      console.log('connected to db')
+    })
   }
 }
 
